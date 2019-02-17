@@ -6,3 +6,5 @@ var TransactionSchema = new Schema({
   seller_id: mongoose.Types.ObjectId,
   buyer_id: mongoose.Types.ObjectId
 });
+
+module.exports = mongoose.model('Transaction', TransactionSchema);

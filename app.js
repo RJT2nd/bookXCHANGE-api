@@ -28,6 +28,10 @@ var auth = require('./routes/auth');
 app.use('/api/auth', auth);
 
 var book = require('./routes/book');
+app.use('/api/book', book);
+
+var transaction = require('./routes/transaction');
+app.use('/api/transaction', transaction);
 
 var image_upload = require('./routes/image-upload');
 app.use('/api/image-upload', image_upload);

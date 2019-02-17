@@ -39,7 +39,7 @@ router.get('/:id', passport.authenticate('jwt', { session: false }), function(re
 });
 
 // POST book
-router.post('/', passport.authenticate('jwt', { session: false }), function(req, res, next) {
+router.post('/', passport.authenticate('jwt', { session: false }), function(req, res) {
   var token = getToken(req.headers);
   if(token) {
     var newBook = new Book({
@@ -54,9 +54,19 @@ router.post('/', passport.authenticate('jwt', { session: false }), function(req,
       publisher: req.body.publisher,
       published_year: req.body.published_year,
       description: req.body.description
-    })
+    });
+
+    // Save the book
+    newBook.save(function(err) {
+      if(err) {
+        return res.json({ success: false, msg: 'Error saving book' });
+      }
+      return res.json({ success: true, msg: "Successfully created new book" });
+    });
   }
   else {
     return res.status(403).send({ success: false, msg: 'unauthorized' });
   }
-})
+});
+
+module.exports = router;
