@@ -17,11 +17,12 @@ var upload = multer({
     s3: s3,
     bucket: 'book-exchange-jhacks',
     acl: 'public-read',
+    contentType: multerS3.AUTO_CONTENT_TYPE,
     metadata: function(req, file, cb) {
       cb(null, { fieldName: file.fieldname });
     },
     key: function(req, file, cb) {
-      cb(null, Date.now().toString());
+      cb(null, Date.now().toString() + '.png');
     }
   })
 });
